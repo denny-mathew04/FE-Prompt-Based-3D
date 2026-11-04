@@ -7,12 +7,12 @@ export default function SettingsModal({
   onSaveKeys,
   backendStatus 
 }) {
-  if (!isOpen) return null;
-
   const [geminiKey, setGeminiKey] = useState(() => localStorage.getItem('promptcad_gemini_key') || '');
   const [openaiKey, setOpenaiKey] = useState(() => localStorage.getItem('promptcad_openai_key') || '');
   const [provider, setProvider] = useState(() => localStorage.getItem('promptcad_provider') || 'gemini');
   const [saved, setSaved] = useState(false);
+
+  if (!isOpen) return null;
 
   const handleSave = () => {
     localStorage.setItem('promptcad_gemini_key', geminiKey.trim());

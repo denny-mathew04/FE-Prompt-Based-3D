@@ -58,12 +58,20 @@ export default function CADViewport({
 
     // 3. Renderer with antialiasing and shadow map
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
-    renderer.setSize(width, height);
+    const initW = width || 800;
+    const initH = height || 600;
+    renderer.setSize(initW, initH, false);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;
+
+    // Ensure the canvas fully covers its container without stretching or squishing
+    renderer.domElement.style.display = 'block';
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -279,6 +287,7 @@ export default function CADViewport({
         const sizeY = finalBox.max.y - finalBox.min.y;
         if (controlsRef.current) {
           controlsRef.current.target.set(0, Math.max(15, sizeY / 2), 0);
+          controlsRef.current.update();
         }
       },
       undefined,

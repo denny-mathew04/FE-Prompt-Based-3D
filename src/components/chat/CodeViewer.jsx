@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Copy, Check, Play, RefreshCw, Code } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Copy, Check, RefreshCw, Code } from 'lucide-react';
 
 export default function CodeViewer({ 
   isOpen, 
@@ -8,10 +8,14 @@ export default function CodeViewer({
   onRecompileCode,
   isRecompiling 
 }) {
-  if (!isOpen) return null;
-
   const [code, setCode] = useState(scadCode || '');
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setCode(scadCode || '');
+  }, [scadCode]);
+
+  if (!isOpen) return null;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);

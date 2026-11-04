@@ -31,6 +31,7 @@ export default function TelemetryHUD({ telemetry, infillPercent, onInfillChange 
   const mins = estimated_print_time_mins % 60;
   const timeFormatted = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
 
+  return (
     <div className="bg-white/90 rounded-2xl p-4 border border-gray-200 text-gray-800 shadow-lg backdrop-blur-md">
       {/* Header & Overall Status */}
       <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-3">
